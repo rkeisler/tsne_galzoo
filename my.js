@@ -1,3 +1,4 @@
+// adapted from http://kempe.net/blog/2014/06/14/leaflet-pan-zoom-image.html
 // create the slippy map
 var map = L.map('map', {
 	minZoom: 1,
@@ -8,12 +9,6 @@ var map = L.map('map', {
     });
 
 // dimensions of the image
-//var w = 4000,
-//    h = 4000,
-//    url = 'http://cs.stanford.edu/people/karpathy/cnnembed/cnn_embed_4k.jpg';
-//var w = 6000,
-//    h = 6000,
-//    url = 'http://cs.stanford.edu/people/karpathy/cnnembed/cnn_embed_6k.jpg';
 var w = 6000,
     h = 4000,
     url = 'http://stanford.edu/~rkeisler/viz/test.jpg';
