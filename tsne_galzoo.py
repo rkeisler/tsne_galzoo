@@ -76,7 +76,7 @@ def make_big_image(nfit=nfit_default, force_grid=False, density=1.0,
     big[weight>0] /= weight[weight>0]
 
     # convert to 8-bit and save as jpg.
-    pl.imsave('test.jpg', big.astype('uint8'))
+    pl.imsave('big.jpg', big.astype('uint8'))
 
 
 def load_embedding(nfit=nfit_default):

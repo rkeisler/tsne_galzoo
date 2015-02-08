@@ -11,7 +11,8 @@ var map = L.map('map', {
 // dimensions of the image
 var w = 6000,
     h = 4000,
-    url = 'http://stanford.edu/~rkeisler/viz/test.jpg';
+// you will need to replace this with a link to your own image.
+    url = 'http://stanford.edu/~rkeisler/tsne_galzoo/big.jpg';
 
 // calculate the edges of the image, in coordinate space
 var southWest = map.unproject([0, h], map.getMaxZoom()-1);
