@@ -7,6 +7,7 @@ nfit_default = 10000
 
 
 def main():
+    download_data()
     embed_and_save()
     make_big_image()
 
@@ -64,26 +65,25 @@ def make_big_image(nfit=nfit_default, force_grid=False, density=1.0,
 
         # put the new image into the big image.
         if force_grid:
-            image[a:a+nx_small, b:b+ny_small, :] = this_image
+            big[a:a+nx_small, b:b+ny_small, :] = this_small
         else:
             # this is a nice way of blending in overlapping images.
-            this_weight = (this_image.mean(2))[:,:,np.newaxis]
+            this_weight = (this_small.mean(2))[:,:,np.newaxis]
             weight[a:a+nx_small, b:b+ny_small, :] += this_weight
-            image[a:a+nx_small, b:b+ny_small, :] += (this_image*this_weight)
+            big[a:a+nx_small, b:b+ny_small, :] += (this_small*this_weight)
 
     # divide out the weight array from the big image.
-    image[weight>0] /= weight[weight>0]
+    big[weight>0] /= weight[weight>0]
 
     # convert to 8-bit and save as jpg.
-    image = image.astype('uint8')
-    pl.imsave('test.jpg', image)
+    pl.imsave('test.jpg', big.astype('uint8'))
 
 
 def load_embedding(nfit=nfit_default):
     savename = 'embed/embed%i.pkl'%nfit
     id, x, y = pickle.load(open(savename,'r'))
     return id, x, y
-
+   
 
 def embed_and_save(nfit=nfit_default):
     # load labels
@@ -180,11 +180,17 @@ def cimshow(img):
     return
 
 
+def download_data():
+    from os import system
+    from subprocess import call
+    print '...downloading data...'
+    call('curl -O http://stanford.edu/~rkeisler/tsne_galzoo_data.zip')
+    call('unzip tsne_galzoo_data.zip')
+    call('rm tsne_galzoo_data.zip')
+
+
 if __name__ == "__main__":
     main()
 
-# Data is from:
-# http://www.kaggle.com/c/galaxy-zoo-the-galaxy-challenge/download/training_solutions_rev1.zip
-# https://www.kaggle.com/c/galaxy-zoo-the-galaxy-challenge/download/images_training_rev1.zip
 
     
