@@ -5,7 +5,7 @@ Running
 `python tsne_galzoo.py`
 will 
 - download and untar 800 MB of image data (~20 minutes), 
-- embed 10k randomly-selected galaxies into a 2d space based on their GalaxyZoo morphologies, using the `scikit-learn` t-SNE implementation (~30 minutes), and
+- embed 10k randomly-selected galaxies into a 2d space based on their GalaxyZoo morphologies, using the `scikit-learn` t-SNE implementation (~30-60 minutes), and
 - make a big jpg image showing those galaxies in the 2d space (~5 minutes).
 
 To explore that image in the browser, modify the `index.html` and `my.js` files accordingly.

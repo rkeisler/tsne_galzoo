@@ -15,6 +15,10 @@ def main():
 def make_big_image(nfit=nfit_default, force_grid=False, density=1.0, 
                    npix_horizontal=6000, npix_vertical=4000, 
                    npix_small=50):
+    # The structure of this program comes from @karpathy :
+    # http://cs.stanford.edu/people/karpathy/cnnembed/cnnembed.zip
+    # http://cs.stanford.edu/people/karpathy/cnnembed/
+    
     print '...making big image...'
     # load and rescale the 2d embedding.
     id, x, y = load_embedding(nfit=nfit)
