@@ -15,7 +15,11 @@ def main():
 def make_big_image(nfit=nfit_default, force_grid=False, density=1.0, 
                    npix_horizontal=6000, npix_vertical=4000, 
                    npix_small=50):
-
+    # The structure of this program comes from @karpathy :
+    # http://cs.stanford.edu/people/karpathy/cnnembed/cnnembed.zip
+    # http://cs.stanford.edu/people/karpathy/cnnembed/
+    
+    print '...making big image...'
     # load and rescale the 2d embedding.
     id, x, y = load_embedding(nfit=nfit)
     x -= x.min(); x /= x.max(); x *= 0.9; x += 0.05
@@ -34,7 +38,7 @@ def make_big_image(nfit=nfit_default, force_grid=False, density=1.0,
 
     # loop over small images and add them to the big image.
     for counter, this_id, this_x, this_y in zip(range(n_obj), id, x, y):
-        if (counter % 100)==0: print '*** %i/%i ***'%(counter, n_obj)
+        if (counter % 100)==0: print '%i/%i'%(counter, n_obj)
 
         # get the location of this image.
         a = np.ceil(this_x * (nx_big-nx_small)+1)
@@ -43,7 +47,7 @@ def make_big_image(nfit=nfit_default, force_grid=False, density=1.0,
             a = a-np.mod(a-1,nx_small)+1
             b = b-np.mod(b-1,ny_small)+1
             # if there is already an image here, skip it.
-            if big[a,b,1] != 0
+            if big[a,b,1] != 0: continue
 
         # randomly decide whether or not we keep this image.
         if np.random.random() > density: continue
@@ -116,7 +120,7 @@ def embed_and_save(nfit=nfit_default):
 
 def embed(pos):
     from sklearn.manifold import TSNE
-    model = TSNE(n_components=2, random_state=0, init='pca', metric='l2')
+    model = TSNE(n_components=2, random_state=0)
     nsamples, ndim = pos.shape
     print '...fitting %i samples...'%(nsamples)
     pos2d = model.fit_transform(pos)
@@ -181,12 +185,11 @@ def cimshow(img):
 
 
 def download_data():
-    from os import system
     from subprocess import call
-    print '...downloading data...'
-    call('curl -O http://stanford.edu/~rkeisler/tsne_galzoo_data.zip')
-    call('unzip tsne_galzoo_data.zip')
-    call('rm tsne_galzoo_data.zip')
+    print '...downloading 800M of data...'
+    call(['curl','-O','http://stanford.edu/~rkeisler/tsne_galzoo_data.tar'])
+    call(['tar','-xvf','tsne_galzoo_data.tar'])
+    call(['rm','tsne_galzoo_data.tar'])
 
 
 if __name__ == "__main__":
