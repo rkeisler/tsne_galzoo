@@ -10,4 +10,4 @@ will
 
 To explore that image in the browser, modify the `index.html` and `my.js` files accordingly.
 
-See [my example here](http://stanford.edu/~rkeisler/tsne_galzoo/).
+See [my example here](http://rkeisler.github.io/tsne_galzoo/).
